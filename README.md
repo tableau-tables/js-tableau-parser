@@ -1,48 +1,40 @@
-**StringScanner** is a simple string tokenizer that provides for lexical
-scanning operations on a string. It's a JavaScript port of the [Ruby
-library with the same name](http://ruby-doc.org/core/classes/StringScanner.html).
+# Extended Table Syntax for Markdown
 
-Scanning a string means keeping track of and advancing a position (a
-zero-based index into the source string) and matching regular expressions
-against the portion of the source string after the position.
+[Tableau Tables](https://tableau-tables.github.io) gives you way more control 
+over the tables you create in Markdown documents. `tableau-marked` is the version of Tableau 
+for the Python Markdown processor.
 
-This code is a port of Sam Stephenson's original [CoffeeScript version](http://github.com/sstephenson/strscan-js).
+#### Headers
 
-## Quick start
--------------------------------------------------------------------------
+* Headerless tables
+* Multiline headers
+* Multiple separate headers
+* Headers in columns and rows
+* Captions
 
-~~~ 
-$ yarn add strscan-ts
-$ node
-~~~
+#### Layout
 
-~~~ ruby
-> { StringScanner } = require("strscan-ts")
-> s = new StringScanner("This is a test")
-> s.scan(/\w+/)             # => "This"
-> s.scan(/\w+/)             # => null
-> s.scan(/\s+/)             # => " "
-> s.scan(/\s+/)             # => null
-> s.scan(/\w+/)             # => "is"
-> s.hasTerminated()         # => false
-> s.scan(/\s+/)             # => " "
-> s.scan(/(\w+)\s+(\w+)/)   # => "a test"
-> s.getMatch()              # => "a test"
-> s.getCapture(0)           # => "a"
-> s.getCapture(1)           # => "test"
-> s.hasTerminated()         # => true
-~~~
+* Layout uses CSS styles and not inline attributes (making it easier to
+  change the style of a whole document)
+* Per cell alignment and CSS classes
+* Default attributes, both down columns and across rows
+* Table-wide classes
+* Row and column span
+* Continuation lines
 
-## Slower start
+Here are [some samples](https://tableau-tables.github.io/samples/).
 
-Go get a hot drink, put on some soothing music, visualize your happy place, and
-delight in [the
-docs](https://pragdave.me/strscan-ts/classes/StringScanner.html).
+This repository contains a JavaScript library that handles most of
+the work of transforming a table description into HTML. However, by
+itself, it is not a Markdown processor plugin.
 
-## Information
+Instead, it is a library used by folks who want to _write_ a plugin for their favorite
+Markdown processor.
 
-This is a derivative work of [Sam Stevphenson's original](http://github.com/sstephenson/strscan-js).
+If you're looking for an existing plugin, have a look at [this list](https://tableau-tables.github.io#if-you-want-to-use-tableau-tables).
 
-It is made available under the MIT license.
+### Writing a Plugin
 
-Copyright © 2022 Dave Thomas
+There's a [guide](https://tableau-tables.github.io/write_javascript_plugin/).
+
+
