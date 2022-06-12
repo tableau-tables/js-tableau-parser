@@ -1,5 +1,5 @@
 module.exports = {
-    entryPoints: [ "src/strscan.ts" ],
+    entryPoints: [ "src/tableau.ts" ],
     exclude: [ "test/**" ],
     excludeInternal: true,
     out: "doc"
