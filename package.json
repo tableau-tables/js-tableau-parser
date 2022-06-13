@@ -1,6 +1,6 @@
 {
   "name": "js-tableau-parser",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Markdown implementation-independent library for parsing the tableau table format. Use this to build an extension for your Markdown processor",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

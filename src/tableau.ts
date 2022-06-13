@@ -15,7 +15,7 @@ function split_into_rows(table: string): string[] {
 
 // ########################################################################
 
-class Format {
+export class Format {
   propagate_formats: string[] = []
   alignment: T.Alignment = "="
   span?: string
@@ -69,55 +69,55 @@ class Format {
 
 // ########################################################################
 
+/**
+  * A single cell in the table. All information is accessed via properties.
+  * (Only exported to make testiong easier)
+*/
+
+export class Cell {
+  /** 
+    * If this cell is the first cell in a column of rowspans, the number of
+    * spanned rows that follow. (You'll want to add 1 to create a rowspan
+    * attribute)
+    */
+  rowspan_count = 0
+
   /**
-    * A single cell in the table. All information is accessed via properties.
-    * (Only exported to make testiong easier)
-  */
+    * If this cell is the first in a number of spanned cells in a row, the
+    * number of cells that follow. (Again, add one to create the colspan
+    * attribute).
+                                    */
+  colspan_count = 0
 
-  export class Cell {
-    /** 
-      * If this cell is the first cell in a column of rowspans, the number of
-      * spanned rows that follow. (You'll want to add 1 to create a rowspan
-      * attribute)
-      */
-    rowspan_count = 0
+  /**
+    * If `true`, do not generate HTML for this cell. This is set
+    * on cells that are part of a row or column span.
+    */
+  hidden = false
 
-    /**
-      * If this cell is the first in a number of spanned cells in a row, the
-      * number of cells that follow. (Again, add one to create the colspan
-      * attribute).
-                                      */
-    colspan_count = 0
+  /**
+    * The original content of the cell (in Markdown markup). Note that it
+    * might be block content.
+    */
+  content: string
 
-    /**
-      * If `true`, do not generate HTML for this cell. This is set
-      * on cells that are part of a row or column span.
-      */
-    hidden = false
+  /**
+    * The [[`Format`]] object for this cell.
+    */
+  format: Format
 
-    /**
-      * The original content of the cell (in Markdown markup). Note that it
-      * might be block content.
-      */
-    content: string
+  /**
+    * A spare field that can be used by rendering (for example to pass information
+    * between the tokenizer and the renderer in marked)
+    */
 
-    /**
-      * The [[`Format`]] object for this cell.
-      */
-    format: Format
+  data: any
 
-    /**
-      * A spare field that can be used by rendering (for example to pass information
-      * between the tokenizer and the renderer in marked)
-      */
-
-    data: any
-
-    constructor(raw_cell: T.ParsedCell, base_format: Format, row_format: T.Formats) {
-      this.content = raw_cell.content.join("").trim()
-      this.format = base_format.merge(row_format.concat(raw_cell.formats))
-    }
+  constructor(raw_cell: T.ParsedCell, base_format: Format, row_format: T.Formats) {
+    this.content = raw_cell.content.join("").trim()
+    this.format = base_format.merge(row_format.concat(raw_cell.formats))
   }
+}
 
   const  EMPTY_CELL: T.ParsedCell = { formats: [], content: [] }
 
